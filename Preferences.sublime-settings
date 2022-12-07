@@ -1,15 +1,15 @@
 {
 	"auto_complete_commit_on_tab": true,
 	"caret_style": "blink",
-	"color_scheme": "Packages/User/SublimeLinter/base16-eighties.dark (SL).tmTheme",
+	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Go Mono",
-	"font_size": 8,
+	"font_size": 9,
 	"highlight_line": true,
 	"ignored_packages":
 	[
 		"JsFormat",
-		"Vintage"
+		"Vintage",
 	],
 	"margin": 2,
 	"save_on_focus_lost": true,
@@ -18,5 +18,5 @@
 	"tab_size": 4,
 	"theme": "Spacegray Eighties.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true,
 }
