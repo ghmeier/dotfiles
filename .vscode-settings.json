@@ -1,0 +1,399 @@
+{
+    "workbench.colorTheme": "Monokai Pro",
+    "files.autoSave": "onFocusChange",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.biome": "explicit",
+        "source.organizeImports.biome": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[html]": {
+        "editor.formatOnSave": false,
+    },
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true
+    },
+    "files.exclude": {
+        ".tsbuildinfo": true,
+        "*.lcov": true,
+        "**/__pycache__": true,
+        "**/.mypy_cache": true,
+        "**/.venv": true,
+        "**/coverage": true,
+        "**/node_modules": true,
+        "**/pdfjs-2.15.349-dist": true,
+        "**/staticfiles": true,
+        "**/target/**": true,
+        "**/worktrees/*": true,
+        "assets/**/*.json": true
+    },
+    "search.searchOnType": false,
+    "search.useGlobalIgnoreFiles": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        ".",
+        "-p",
+        "*test*.py",
+        "--no-migrations"
+    ],
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": false,
+    "python.languageServer": "None",
+    "ty.disableLanguageServices": false,
+    "js/ts.format.enabled": false,
+    "js/ts.preferences.preferTypeOnlyAutoImports": true,
+    "js/ts.updateImportsOnPaste.enabled": false,
+    "js/ts.experimental.useTsgo": true,
+    "editor.stickyScroll.enabled": false,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "editor.fontFamily": "'Monaspace Argon', monospace",
+    "editor.inlineSuggest.fontFamily": "'Monaspace Krypton', monospace",
+    "editor.fontLigatures": "'calt', 'liga', 'ss03', 'ss04'",
+    "workbench.editor.closeEmptyGroups": false,
+    "search.exclude": {
+        "**/assets/bundles/**": true,
+        "**/node_modules/**": true,
+        "**/pdfjs-2.15.349-dist/**": true,
+        "**/staticfiles/**": true,
+        "**/target/**": true,
+        "**/worktrees/**": true,
+        "**/__pycache__/**": true,
+        "**/.mypy_cache/**": true,
+        "**/.venv/**": true,
+        "**/coverage/**": true,
+        "**/extension/.output/**": true
+    },
+    "editor.minimap.enabled": false,
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.location": "hidden",
+    "html.format.preserveNewLines": false,
+    "workbench.iconTheme": "Default Dark Modern Monochrome Icons",
+    "files.associations": {
+        "vespaschema": "*.sd"
+    },
+    "editor.codeLensFontFamily": "Monaspace Argon",
+    "editor.copyWithSyntaxHighlighting": false,
+    "chat.agent.enabled": true,
+    "git.blame.editorDecoration.enabled": false,
+    "workbench.startupEditor": "none",
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "sklearn",
+            "depth": 2
+        },
+        {
+            "name": "matplotlib",
+            "depth": 2
+        },
+        {
+            "name": "scipy",
+            "depth": 2
+        },
+        {
+            "name": "django",
+            "depth": 4,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "rest_framework",
+            "depth": 3,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "rest_framework_nested",
+            "depth": 2,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "sentry_sdk",
+            "depth": 2,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "allauth",
+            "depth": 3,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "django_deprecate_fields",
+            "depth": 2
+        },
+        {
+            "name": "drf_spectacular",
+            "depth": 2
+        },
+        {
+            "name": "djangorestframework_camel_case",
+            "depth": 2
+        },
+        {
+            "name": "drf_writable_nested",
+            "depth": 2
+        },
+        {
+            "name": "djangorestframework_camel_case",
+            "depth": 3
+        },
+        {
+            "name": "syrupy",
+            "depth": 3
+        },
+        {
+            "name": "pytest_django",
+            "depth": 2
+        },
+        {
+            "name": "asgiref",
+            "depth": 3
+        },
+        {
+            "name": "openai",
+            "depth": 4
+        },
+        {
+            "name": "thefuzz",
+            "depth": 4
+        }
+    ],
+    "chat.mcp.discovery.enabled": {
+        "claude-desktop": false,
+        "windsurf": false,
+        "cursor-global": false,
+        "cursor-workspace": false
+    },
+    "chat.mcp.serverSampling": {
+        "Global in Code - Insiders: shortcut": {
+            "allowedModels": [
+                "github.copilot-chat/gpt-4.1",
+                "github.copilot-chat/claude-3.5-sonnet",
+                "github.copilot-chat/claude-3.7-sonnet",
+                "github.copilot-chat/claude-3.7-sonnet-thought",
+                "github.copilot-chat/claude-sonnet-4",
+                "github.copilot-chat/gemini-2.0-flash-001",
+                "github.copilot-chat/gemini-2.5-pro",
+                "github.copilot-chat/gpt-4o",
+                "github.copilot-chat/o1",
+                "github.copilot-chat/o3-mini",
+                "github.copilot-chat/o4-mini",
+                "github.copilot-chat/gpt-5"
+            ]
+        }
+    },
+    "biome.suggestInstallingGlobally": false,
+    "python.defaultInterpreterPath": "/Users/ghmeier/.local/bin/python3.14",
+    "chat.mcp.autostart": "newAndOutdated",
+    "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+    "html.autoClosingTags": false,
+    "js/ts.autoClosingTags.enabled": false,
+    "js/ts.preferences.jsxAttributeCompletionStyle": "none",
+    "search.useIgnoreFiles": false,
+    "gitweblinks.defaultBranch": "main",
+    "chat.mcp.access": "all",
+    "python-envs.defaultPackageManager": "ms-python.python:uv",
+    "gitblame.ignoreWhitespace": true,
+    "gitblame.inlineMessageEnabled": true,
+    "gitblame.inlineMessageFormat": "${author.name} (${time.ago}) - ${commit.summary}",
+    "gitblame.statusBarMessageFormat": "${author.name} (${time.ago})",
+    "gitblame.currentUserAlias": "You",
+    "gitblame.inlineMessageNoCommit": "",
+    "gitblame.statusBarMessageNoCommit": "",
+    "monokaiPro.fileIconsMonochrome": true,
+    "ty.inlayHints.variableTypes": false,
+    "chat.tools.terminal.autoApprove": {
+        "uv run pytest": true,
+        "/^uv run ruff.*$/": true,
+        "/^uv run mypy.*$/": true,
+        "make tf": true,
+        "cd": true,
+        "echo": true,
+        "ls": true,
+        "pwd": true,
+        "cat": true,
+        "head": true,
+        "tail": true,
+        "findstr": true,
+        "wc": true,
+        "tr": true,
+        "cut": true,
+        "cmp": true,
+        "which": true,
+        "basename": true,
+        "dirname": true,
+        "realpath": true,
+        "readlink": true,
+        "stat": true,
+        "file": true,
+        "du": true,
+        "df": true,
+        "sleep": true,
+        "nl": true,
+        "grep": true,
+        "git status": true,
+        "git log": true,
+        "git show": true,
+        "git diff": true,
+        "git grep": true,
+        "git branch": true,
+        "/^git branch\\b.*-(d|D|m|M|-delete|-force)\\b/": false,
+        "Get-ChildItem": true,
+        "Get-Content": true,
+        "Get-Date": true,
+        "Get-Random": true,
+        "Get-Location": true,
+        "Write-Host": true,
+        "Write-Output": true,
+        "Split-Path": true,
+        "Join-Path": true,
+        "Start-Sleep": true,
+        "Where-Object": true,
+        "/^Select-[a-z0-9]/i": true,
+        "/^Measure-[a-z0-9]/i": true,
+        "/^Compare-[a-z0-9]/i": true,
+        "/^Format-[a-z0-9]/i": true,
+        "/^Sort-[a-z0-9]/i": true,
+        "column": true,
+        "/^column\\b.*-c\\s+[0-9]{4,}/": false,
+        "date": true,
+        "/^date\\b.*(-s|--set)\\b/": false,
+        "find": true,
+        "/^find\\b.*-(delete|exec|execdir|fprint|fprintf|fls|ok|okdir)\\b/": false,
+        "sort": true,
+        "/^sort\\b.*-(o|S)\\b/": false,
+        "tree": true,
+        "/^tree\\b.*-o\\b/": false,
+        "rm": false,
+        "rmdir": false,
+        "del": false,
+        "Remove-Item": false,
+        "ri": false,
+        "rd": false,
+        "erase": false,
+        "dd": false,
+        "kill": false,
+        "ps": false,
+        "top": false,
+        "Stop-Process": false,
+        "spps": false,
+        "taskkill": false,
+        "taskkill.exe": false,
+        "curl": false,
+        "wget": false,
+        "Invoke-RestMethod": false,
+        "Invoke-WebRequest": false,
+        "irm": false,
+        "iwr": false,
+        "chmod": false,
+        "chown": false,
+        "Set-ItemProperty": false,
+        "sp": false,
+        "Set-Acl": false,
+        "jq": false,
+        "xargs": false,
+        "eval": false,
+        "Invoke-Expression": false,
+        "iex": false,
+        "./generate_api_client.sh": true,
+        "/^uv run manage\\.py makemigrations$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^uv run python manage\\.py makemigrations$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^uv run ./manage\\.py profile_demand_measurement .*$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^uv run python manage\\.py makemigrations .*$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "npx tsc": true
+    },
+    "chat.useAgentSkills": true,
+    "chat.viewSessions.orientation": "stacked",
+    "chat.editing.confirmEditRequestRemoval": false,
+    "chat.tools.terminal.outputLocation": "chat",
+    "chat.agent.maxRequests": 50,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "wtColor.areas": [
+        "titleBar",
+        "tab",
+        "border"
+    ],
+    "wtColor.palette": [
+        "#c2a7f7","#8f80f3", "#2620c5", "#08054c", "#49c5b5", "#155a4d", "#08241f", "#8dec18", "#376204", "#d66633", "#61220d"
+    ],
+    "workbench.experimental.modernUI": false,
+    "files.watcherExclude": {
+        "**/.venv/**": true,
+        "**/data/**": true,
+        "**/node_modules/**": true,
+        "**/pdfjs-2.15.349-dist/**": true,
+        "**/worktrees/**": true,
+        "**/.claude/worktrees/**": true,
+        "**/coverage/**": true,
+        "**/staticfiles/**": true,
+        "**/target/**": true,
+        "**/__pycache__/**": true,
+        "**/.mypy_cache/**": true,
+        "**/assets/bundles/**": true
+    },
+    "python.analysis.exclude": [
+        "worktrees/**",
+        ".claude/worktrees/**",
+        "**/node_modules/**",
+        "**/pdfjs-2.15.349-dist/**",
+        "**/staticfiles/**",
+        "**/__pycache__/**",
+        "**/.mypy_cache/**",
+        "**/.*"
+    ],
+    "js/ts.tsserver.watchOptions": {
+        "excludeDirectories": [
+            "worktrees",
+            ".claude/worktrees",
+            "node_modules"
+        ]
+    },
+    "json.schemaDownload.trustedDomains": {
+        "https://biomejs.dev": true,
+        "https://developer.microsoft.com/json-schemas/": true,
+        "https://docs.renovatebot.com/renovate-schema.json": true,
+        "https://json-schema.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
+        "https://schemastore.azurewebsites.net/": true,
+        "https://www.schemastore.org/": true
+    },
+    "git.detectWorktrees": true,
+    "ty.importStrategy": "useBundled",
+    "[json]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "chat.titleBar.openInAgentsWindow.enabled": false,
+    "workbench.browser.showInTitleBar": false,
+    "chat.disableAIFeatures": true,
+}
