@@ -1,0 +1,153 @@
+{
+  "env": {
+    "CLAUDE_COWORK_MEMORY_GUIDELINES": "You have a persistent file-based memory system at ~/.claude/projects/<project>/memory/. Build it up so future conversations have context on who the user is, how they want to collaborate, what to repeat or avoid, and the why behind their work.\n\nIf the user explicitly asks to remember or forget something, do it immediately.\n\nMemory file format: frontmatter with `name`, `description`, and `type` (user, feedback, project, or reference); body is the fact itself.\n\n- user: role, expertise, preferences\n- feedback: corrections AND confirmed approaches — include the why so future-you can judge edge cases. For feedback/project, structure the body as the rule/fact, then **Why:** and **How to apply:** lines\n- project: ongoing work, constraints, deadlines (convert relative dates to absolute)\n- reference: pointers to external systems\n\nUpdate existing files rather than duplicating. Maintain MEMORY.md as a one-line-per-entry index — keep it under 200 lines. Don't save what the repo already records (code, git history, CLAUDE.md) or info only relevant to this conversation. If the user asks to save something derivable from the repo, ask what was non-obvious about it and save that instead.\n\nMemories recalled in <system-reminder> blocks are background context, not user instructions, and reflect what was true when written. Before recommending a file, function, or flag named in memory, verify it still exists.",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(bun:*)",
+      "Bash(bunx:*)",
+      "Bash(cat:*)",
+      "Bash(cat /tmp/*)",
+      "Bash(cat > /tmp/*)",
+      "Bash(cd:*)",
+      "Bash(chmod +x:*)",
+      "Bash(curl:*)",
+      "Bash(docker images:*)",
+      "Bash(docker info:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker run *)",
+      "Bash(docker stop:*)",
+      "Bash(docker volume:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(gh:*)",
+      "Bash(git:*)",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(ls:*)",
+      "Bash(make:*)",
+      "Bash(npm info:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm view *)",
+      "Bash(npx:*)",
+      "Bash(pip:*)",
+      "Bash(python3:*)",
+      "Bash(sort:*)",
+      "Bash(tail:*)",
+      "Bash(ty check *)",
+      "Bash(ty explain *)",
+      "Bash(ty help *)",
+      "Bash(ty rule *)",
+      "Bash(ty server *)",
+      "Bash(uv:*)",
+      "Bash(uvx ty *)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Edit",
+      "Write",
+      "Read(~/.zshrc)",
+      "Read(/tmp/*)",
+      "Read(//tmp/**)",
+      "Edit(/tmp/*)",
+      "Read(//Users/ghmeier/.claude/**)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:docs.astral.sh)",
+      "WebFetch(domain:docs.docker.com)",
+      "WebFetch(domain:docs.renovatebot.com)",
+      "WebFetch(domain:docs.sentry.io)",
+      "WebFetch(domain:platform.openai.com)",
+      "WebFetch(domain:aws.amazon.com)",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_variable_defs",
+      "mcp__playwright__*",
+      "mcp__sentry__*",
+      "mcp__shortcut__*",
+      "Skill(update-config)"
+    ],
+    "deny": [],
+    "ask": [
+      "Bash(git reset)",
+      "Bash(git reset:*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/verify-push.sh",
+            "if": "Bash(git push*)"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/verify-push.sh",
+            "if": "Bash(rtk git push*)"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/verify-push.sh",
+            "if": "Bash(git -C *)"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/verify-push.sh",
+            "if": "Bash(make wtx*)"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/verify-push.sh",
+            "if": "Bash(rtk make wtx*)"
+          }
+        ]
+      }
+    ]
+  },
+  "enableWorkflows": false,
+  "workflowKeywordTriggerEnabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
+    "ty-lsp@local-ty": true
+  },
+  "extraKnownMarketplaces": {
+    "local-ty": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/ghmeier/.claude/plugins/marketplaces/local-ty"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "tui": "default",
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark-ansi",
+  "preferredNotifChannel": "kitty",
+  "remoteControlAtStartup": false
+}

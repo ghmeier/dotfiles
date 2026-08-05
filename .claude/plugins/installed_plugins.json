@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "plugins": {
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ghmeier/.claude/plugins/cache/claude-plugins-official/superpowers/6.2.0",
+        "version": "6.2.0",
+        "installedAt": "2026-03-09T17:17:38.635Z",
+        "lastUpdated": "2026-07-24T16:38:56.951Z",
+        "gitCommitSha": "e4a2375cb705ca5800f0833528ce36a3faf9017a"
+      }
+    ],
+    "skill-creator@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/ghmeier/git/gazebo",
+        "installPath": "/Users/ghmeier/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
+        "version": "unknown",
+        "installedAt": "2026-03-09T17:18:10.128Z",
+        "lastUpdated": "2026-08-05T00:03:01.927Z",
+        "gitCommitSha": "bb030c547ae8287a615ae48cff3dc987beeab1ae"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ghmeier/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-11T19:43:54.351Z",
+        "lastUpdated": "2026-03-11T19:43:54.351Z",
+        "gitCommitSha": "bd041495bd2a1f3e21317f37277b2f5aa152b759"
+      }
+    ],
+    "pyright-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ghmeier/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-11T19:44:09.789Z",
+        "lastUpdated": "2026-03-11T19:44:09.789Z",
+        "gitCommitSha": "bd041495bd2a1f3e21317f37277b2f5aa152b759"
+      }
+    ],
+    "ty-lsp@local-ty": [
+      {
+        "scope": "user",
+        "installPath": "/Users/ghmeier/.claude/plugins/cache/local-ty/ty-lsp/0.0.1",
+        "version": "0.0.1",
+        "installedAt": "2026-04-29T06:47:38.989Z",
+        "lastUpdated": "2026-04-29T06:47:38.989Z"
+      }
+    ]
+  }
+}
