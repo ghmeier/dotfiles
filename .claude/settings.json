@@ -1,17 +1,16 @@
 {
   "env": {
     "CLAUDE_COWORK_MEMORY_GUIDELINES": "You have a persistent file-based memory system at ~/.claude/projects/<project>/memory/. Build it up so future conversations have context on who the user is, how they want to collaborate, what to repeat or avoid, and the why behind their work.\n\nIf the user explicitly asks to remember or forget something, do it immediately.\n\nMemory file format: frontmatter with `name`, `description`, and `type` (user, feedback, project, or reference); body is the fact itself.\n\n- user: role, expertise, preferences\n- feedback: corrections AND confirmed approaches — include the why so future-you can judge edge cases. For feedback/project, structure the body as the rule/fact, then **Why:** and **How to apply:** lines\n- project: ongoing work, constraints, deadlines (convert relative dates to absolute)\n- reference: pointers to external systems\n\nUpdate existing files rather than duplicating. Maintain MEMORY.md as a one-line-per-entry index — keep it under 200 lines. Don't save what the repo already records (code, git history, CLAUDE.md) or info only relevant to this conversation. If the user asks to save something derivable from the repo, ask what was non-obvious about it and save that instead.\n\nMemories recalled in <system-reminder> blocks are background context, not user instructions, and reflect what was true when written. Before recommending a file, function, or flag named in memory, verify it still exists.",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6"
+    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-5-5",
+    "MAKEFLAGS": "SHELL=/Users/ghmeier/.local/share/rtk-agent/recipe-shell"
   },
   "permissions": {
     "allow": [
       "Bash(bun:*)",
-      "Bash(bunx:*)",
       "Bash(cat:*)",
       "Bash(cat /tmp/*)",
       "Bash(cat > /tmp/*)",
       "Bash(cd:*)",
-      "Bash(chmod +x:*)",
       "Bash(curl:*)",
       "Bash(docker images:*)",
       "Bash(docker info:*)",
@@ -28,12 +27,9 @@
       "Bash(ls:*)",
       "Bash(make:*)",
       "Bash(npm info:*)",
-      "Bash(npm run:*)",
       "Bash(npm test:*)",
       "Bash(npm view *)",
-      "Bash(npx:*)",
       "Bash(pip:*)",
-      "Bash(python3:*)",
       "Bash(sort:*)",
       "Bash(tail:*)",
       "Bash(ty check *)",
@@ -88,6 +84,15 @@
             "command": "rtk hook claude"
           }
         ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-carry-own-comments.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -96,28 +101,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/verify-push.sh",
-            "if": "Bash(git push*)"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/verify-push.sh",
-            "if": "Bash(rtk git push*)"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/verify-push.sh",
-            "if": "Bash(git -C *)"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/verify-push.sh",
-            "if": "Bash(make wtx*)"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/verify-push.sh",
-            "if": "Bash(rtk make wtx*)"
+            "command": "~/.claude/hooks/verify-push.sh"
           }
         ]
       }
@@ -134,7 +118,10 @@
     "superpowers@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": false,
-    "ty-lsp@local-ty": true
+    "worktrunk@worktrunk": true,
+    "slack@claude-plugins-official": false,
+    "agent-plan@agent-plan": true,
+    "pyrefly-lsp@local-ty": true
   },
   "extraKnownMarketplaces": {
     "local-ty": {
@@ -142,12 +129,80 @@
         "source": "directory",
         "path": "/Users/ghmeier/.claude/plugins/marketplaces/local-ty"
       }
+    },
+    "worktrunk": {
+      "source": {
+        "source": "github",
+        "repo": "max-sixty/worktrunk"
+      }
+    },
+    "agent-plan": {
+      "source": {
+        "source": "github",
+        "repo": "ghmeier/agent-plan"
+      }
+    },
+    "intuned-agent-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "Intuned/intuned-agent-plugin"
+      }
     }
   },
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "awaySummaryEnabled": false,
   "tui": "default",
   "skipWorkflowUsageWarning": true,
   "theme": "dark-ansi",
   "preferredNotifChannel": "kitty",
-  "remoteControlAtStartup": false
+  "remoteControlAtStartup": false,
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run manage.py:*)",
+      "Bash(make wt*)",
+      "Bash(bun run test:*)"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(uv run manage.py seed_from_prod:*)",
+      "Bash(*clone_prod_database.sh*)",
+      "Bash(*copy_prod_to_staging.sh*)"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: CoProcure (Pavilion / codename Gazebo)",
+      "**Cloud provider(s)**: AWS (aws CLI used; .aws/copy-prod-to-staging.json present)",
+      "**Repository visibility**: Private (CoProcure/gazebo, confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: CI secret CHROMATIC_PROJECT_TOKEN referenced in workflows; local secrets via .env (gitignored)",
+      "**Default / protected branches**: `main` (default), protected branches `main` and `master` (via gh; no rulesets listed)",
+      "**CI/CD deploy targets**: GitHub Actions (.github/workflows), including copy-prod-to-staging.yaml; Vespa deploy targets via Makefile (deploy-vespa-dev, deploy-vespa-local, deploy-vespa-prod)",
+      "**Network posture**: Tailscale VPN required for staging/prod database and Django Admin access",
+      "**Source control**: GitHub — CoProcure/gazebo (origin: github.com:CoProcure/gazebo.git) and its remote only",
+      "**Trusted internal domains**: *.local.withpavilion.com (gazebo.local.withpavilion.com, worktrunk-migration.local.withpavilion.com, and per-branch subdomains seen in this repo's dev environment)",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: Vespa Cloud search index; PostgreSQL (prod/staging accessible via Tailscale); Redis/Celery queues (celery, search, offerings, supplier-data, agency-data, data-refresh, agency-crawler, slow-external-processing, storefile)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: production database and its local clones (via seed_from_prod / clone_prod_database.sh), .env and .env.backup, .aws/copy-prod-to-staging.json, copy-prod-to-staging pipeline (script, Dockerfile, workflow), update_task_definition_secrets.py — share only with engineers cleared for production data access",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace/host/container with `prod` or `production` as a whole word/segment — includes copy-prod-to-staging tooling, seed_from_prod command, prod Vespa deploy target (deploy-vespa-prod), and prod/staging DB access over Tailscale",
+      "**Protected deployment namespaces / environments**: prod/production Vespa (deploy-vespa-prod), prod/staging databases reached via Tailscale — matches Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything named/tagged with `prod` or `production` as a whole word or segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (Django/React B2B procurement platform; also PR review, bug triage, sales-call-prep agents)",
+      "**Trusted repo**: /Users/ghmeier/git/gazebo (CoProcure/gazebo, private) and its origin remote — confidential business/internal data is fine to commit here, but secrets and personal/regulated data are never cleared by visibility alone",
+      "**Org-specific CLIs**: uv, wt (worktree helper via make wtn/wts/wtu/wtd/etc.), rtk, tailscale",
+      "routine under gazebo/ prefix: worktree management (make wtn/wts/wtu/wtd/wtx), uv-run Python commands, and bun-run frontend commands are routine dev-server/test activity in this repo"
+    ]
+  }
 }

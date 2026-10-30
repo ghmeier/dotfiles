@@ -18,17 +18,44 @@ cwd=$(jq -r '.cwd // empty' <<<"$input")
 
 [[ -z "$command" ]] && exit 0
 
+# Gate on the tool output: only a command that actually ran `git push` prints
+# push transcript lines. Commands that merely mention "git push" (heredocs,
+# scripts, grep patterns) never do. tool_response may be a string or an
+# object with stdout/stderr, depending on the tool version.
+output=$(jq -r '
+  .tool_response
+  | if type == "string" then .
+    elif type == "object" then
+      [.stdout, .stderr, .output, .content, .error]
+      | map(select(type == "string")) | join("\n")
+    else "" end' <<<"$input" 2>/dev/null)
+push_output_re='(^|[[:space:]])(To (github\.com|https://|git@|ssh://)|Everything up-to-date|\[rejected\]|! \[remote rejected\]|error: failed to push|\[new branch\]|\[new tag\])|[0-9a-f]{7,}\.\.\.?[0-9a-f]{7,}[[:space:]]+[^[:space:]]+[[:space:]]+->[[:space:]]+[^[:space:]]+|remote: Create a pull request'
+[[ "$output" =~ $push_output_re ]] || exit 0
+
 # Strip the rtk proxy prefix so parsing sees the real command.
 command="${command#rtk }"
 
-# Only care about pushes; skip deletes/tags (nothing to SHA-compare).
-[[ "$command" != *"git push"* && "$command" != *" push"* ]] && exit 0
+# Only care about real `git push` / `git -C <dir> push` invocations. A bare
+# substring check also matched heredoc bodies and prose ("push back"), which
+# then compared an unpushed branch against origin and reported a failed push.
+push_re='(^|[[:space:];&|("'"'"'])git([[:space:]]+-C[[:space:]]+[^[:space:]]+)?[[:space:]]+push([[:space:]"'"'"']|$)'
+[[ "$command" =~ $push_re ]] || exit 0
+# Skip deletes/tags (nothing to SHA-compare).
 case "$command" in
   *--delete*|*--tags*|*" tag "*) exit 0 ;;
 esac
-[[ "$command" != *push* ]] && exit 0
 
 repo_dir="$cwd"
+
+# A leading `cd <dir> &&` / `cd <dir>;` moves the push into another checkout
+# (typically a worktree) while the session cwd stays put.
+cd_re='^cd[[:space:]]+("([^"]+)"|'"'"'([^'"'"']+)'"'"'|[^[:space:];&|]+)[[:space:]]*(&&|;)'
+if [[ "$command" =~ $cd_re ]]; then
+  cd_dir="${BASH_REMATCH[2]:-${BASH_REMATCH[3]:-${BASH_REMATCH[1]}}}"
+  cd_dir="${cd_dir/#\~/$HOME}"
+  [[ "$cd_dir" != /* ]] && cd_dir="$cwd/$cd_dir"
+  [[ -d "$cd_dir" ]] && repo_dir="$cd_dir"
+fi
 
 # make wtx name=<branch> cmd="..." runs inside the named worktree.
 if [[ "$command" =~ make\ wtx\ .*name=([^[:space:]]+) ]]; then
@@ -44,8 +71,14 @@ fi
 git -C "$repo_dir" rev-parse --git-dir >/dev/null 2>&1 || exit 0
 
 branch=$(git -C "$repo_dir" branch --show-current 2>/dev/null)
+# `wt switch <branch> -x ...` runs the push inside that branch's worktree;
+# worktrees share refs, so comparing the named branch from here is correct.
+if [[ "$command" =~ wt\ switch\ +([^-[:space:]][^[:space:]]*)\ .*-x ]]; then
+  branch="${BASH_REMATCH[1]}"
+fi
 # Explicit refspec (git push origin foo or origin local:remote) overrides.
-if [[ "$command" =~ push\ +(-u\ +)?origin\ +([^[:space:]:]+)(:([^[:space:]]+))? ]]; then
+refspec_re='push +(-u +)?origin +([^[:space:]:"'"'"']+)(:([^[:space:]"'"'"']+))?'
+if [[ "$command" =~ $refspec_re ]]; then
   explicit="${BASH_REMATCH[2]}"
   [[ "$explicit" != -* && "$explicit" != HEAD ]] && branch="$explicit"
 fi
